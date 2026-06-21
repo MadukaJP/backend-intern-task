@@ -28,7 +28,8 @@ async def classify(request: Request, body: ClassifyRequest):
         return result_cache[cache_key]
 
     t0 = time.monotonic()
-    result = await classify_text(body.text)
+    client = getattr(request.app.state, "http_client", None)
+    result = await classify_text(body.text, client=client)
     elapsed = round((time.monotonic() - t0) * 1000)
 
     logger.info(

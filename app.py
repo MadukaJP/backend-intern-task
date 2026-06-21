@@ -21,11 +21,15 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     from core.config import settings
+    import httpx
 
     if not settings.GROQ_API_KEY:
         logger.warning("GROQ_API_KEY is not set — /classify will fail at runtime")
-    logger.info("classify-api started")
-    yield
+    
+    async with httpx.AsyncClient(timeout=8.0) as client:
+        app.state.http_client = client
+        logger.info("classify-api started")
+        yield
     logger.info("classify-api shutting down")
 
 

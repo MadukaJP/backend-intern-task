@@ -9,7 +9,7 @@ from core.config import settings, VALID_LABELS, SYSTEM_PROMPT
 logger = logging.getLogger(__name__)
 
 
-async def classify_text(text: str) -> dict:
+async def classify_text(text: str, client: httpx.AsyncClient = None) -> dict:
     if not settings.GROQ_API_KEY:
         raise HTTPException(status_code=503, detail="Classifier backend not configured")
 
@@ -24,7 +24,7 @@ async def classify_text(text: str) -> dict:
     }
 
     try:
-        async with httpx.AsyncClient(timeout=8.0) as client:
+        if client is not None:
             resp = await client.post(
                 settings.GROQ_API_URL,
                 headers={
@@ -34,6 +34,17 @@ async def classify_text(text: str) -> dict:
                 json=payload,
             )
             resp.raise_for_status()
+        else:
+            async with httpx.AsyncClient(timeout=8.0) as local_client:
+                resp = await local_client.post(
+                    settings.GROQ_API_URL,
+                    headers={
+                        "Authorization": f"Bearer {settings.GROQ_API_KEY}",
+                        "Content-Type":  "application/json",
+                    },
+                    json=payload,
+                )
+                resp.raise_for_status()
     except httpx.TimeoutException:
         raise HTTPException(status_code=504, detail="Classifier timed out")
     except httpx.HTTPStatusError as e:
