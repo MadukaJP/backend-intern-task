@@ -3,15 +3,17 @@
 A high-performance text classification API built with FastAPI. It leverages Groq's Llama 3 model to classify incoming text into specific categories: question, complaint, feedback, request, spam, or other.
 
 **Live Deployment URL:** [https://text-classify-api.vercel.app](https://text-classify-api.vercel.app)
+
 **API Documentation:** [https://text-classify-api.vercel.app/docs](https://text-classify-api.vercel.app/docs)
 
 ---
 
 ## Table of Contents
 1. [How It Works](#how-it-works)
-2. [API Specification](#api-specification)
-3. [Local Development Setup](#local-development-setup)
-4. [Scaling Strategy (If Traffic Doubled)](#scaling-strategy-if-traffic-doubled)
+2. [Project Structure](#project-structure)
+3. [API Specification](#api-specification)
+4. [Local Development Setup](#local-development-setup)
+5. [Scaling Strategy (If Traffic Doubled)](#scaling-strategy-if-traffic-doubled)
 
 ---
 
@@ -24,6 +26,30 @@ The system is designed with responsiveness, rate limiting, and caching built in:
 * **In-Memory Caching:** Uses a TTL (Time-To-Live) cache powered by `cachetools`. Identical queries return cached results instantly, which bypasses downstream LLM calls and reduces latency.
 * **Rate Limiting:** Enforces client-based rate limits using `slowapi` based on the real client IP.
 * **Robust Error Handling:** Features custom exception handlers for validation errors, HTTP exceptions, and generic server errors to return clean JSON error payloads.
+
+---
+
+## Project Structure
+
+```text
+backend-intern-task/
+├── core/
+│   ├── cache.py          # Custom TTLCache for classification results
+│   ├── config.py         # Application settings loaded via Pydantic
+│   └── limiter.py        # Rate limiting logic using slowapi
+├── routes/
+│   └── classify.py       # API route definition for /classify
+├── schemas/
+│   ├── classify_request.py   # Request validation schema
+│   └── classify_response.py  # Response serialization schema
+├── services/
+│   └── groq.py           # Integration client for Groq's API
+├── tests/                # Test suite for API endpoints
+├── app.py                # Main FastAPI application entry point
+├── Dockerfile            # Docker container specification
+├── requirements.txt      # Python dependencies list
+└── README.md             # Project documentation
+```
 
 ---
 
