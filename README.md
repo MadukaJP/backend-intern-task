@@ -3,6 +3,7 @@
 A high-performance text classification API built with FastAPI. It leverages Groq's Llama 3 model to classify incoming text into specific categories: question, complaint, feedback, request, spam, or other.
 
 **Live Deployment URL:** [https://text-classify-api.vercel.app](https://text-classify-api.vercel.app)
+**API Documentation:** [https://text-classify-api.vercel.app/docs](https://text-classify-api.vercel.app/docs)
 
 ---
 
@@ -69,6 +70,7 @@ Classifies a piece of text into one of the designated categories.
 ### 3. Interactive API Documentation (Swagger UI)
 * **Endpoint:** `GET /docs`
 * **Description:** Provides the interactive Swagger UI documentation for testing and discovering endpoints.
+* **Live Link:** [https://text-classify-api.vercel.app/docs](https://text-classify-api.vercel.app/docs)
 
 ---
 
