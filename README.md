@@ -2,9 +2,7 @@
 
 A high-performance text classification API built with FastAPI. It leverages Groq's Llama 3 model to classify incoming text into specific categories: question, complaint, feedback, request, spam, or other.
 
-**Live Deployment URL:** `https://text-classify-api.onrender.com`
-
-*Note: The service is deployed on Render free tier, which may experience cold starts after inactivity.*
+**Live Deployment URL:** [https://text-classify-api.vercel.app](https://text-classify-api.vercel.app)
 
 ---
 
