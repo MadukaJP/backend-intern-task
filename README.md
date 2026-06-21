@@ -2,7 +2,9 @@
 
 A high-performance text classification API built with FastAPI. It leverages Groq's Llama 3 model to classify incoming text into specific categories: question, complaint, feedback, request, spam, or other.
 
-**Live Deployment URL:** ``
+**Live Deployment URL:** `https://text-classify-api.onrender.com`
+
+*Note: The service is deployed on Render free tier, which may experience cold starts after inactivity.*
 
 ---
 
@@ -66,13 +68,17 @@ Classifies a piece of text into one of the designated categories.
   }
   ```
 
+### 3. Interactive API Documentation (Swagger UI)
+* **Endpoint:** `GET /docs`
+* **Description:** Provides the interactive Swagger UI documentation for testing and discovering endpoints.
+
 ---
 
 ## Local Development Setup
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/MadukaJP/backend-intern-task.git
    cd backend-intern-task
    ```
 
